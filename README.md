@@ -1,4 +1,12 @@
-# 🚌 Bus Booking System (Java + JDBC + Multithreading)
+# 🚌 Bus Booking System (Java Backend Project)
+
+A console-based backend system that simulates real-time bus seat booking using **multithreading and JDBC**.
+
+## 🔥 Key Highlights
+- Thread-safe seat booking
+- Real-time passenger boarding & dropping
+- Database consistency handling
+- Layered architecture (DAO + Service)
 
 ## 📌 Project Description
 This is a console-based Bus Booking System built using Java.  
