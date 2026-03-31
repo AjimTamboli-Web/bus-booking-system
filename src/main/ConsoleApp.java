@@ -92,7 +92,8 @@ package main;
 	                    break;
 
 	                case 4:
-	                    passengerService.getPassengersInBus();
+//	                    passengerService.getPassengersInBus();  // old empty list 
+	                	   passengerService.viewAllPassengersFromDB();// new from DB
 	                    break;
 
 	                case 5:

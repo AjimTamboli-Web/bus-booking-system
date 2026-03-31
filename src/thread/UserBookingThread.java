@@ -1,5 +1,6 @@
 package thread;
 
+import dao.PassengerDAO;
 import model.Passenger;
 import service.BookingService;
 
@@ -8,6 +9,7 @@ public class UserBookingThread extends Thread{
 
 	 private BookingService bookingService;
 	 private  Passenger passenger;
+	 private PassengerDAO passengerDAO = new PassengerDAO();
 	 
 	 public UserBookingThread(Passenger passenger,
 		BookingService bookingService) {
@@ -54,6 +56,8 @@ public class UserBookingThread extends Thread{
 		        passenger.setBookingId(bookingId);
 		        passenger.setStatus("CONFIRMED");
 
+		        passengerDAO.updatePassengerStatus(passenger.getPassengerId(), "CONFIRMED");
+		        
 		        System.out.println("Passenger " + passenger.getPassengerId() +
 		                " successfully booked a seat to " + passenger.getDestinationStop());
 		    } else {
