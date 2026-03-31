@@ -3,16 +3,21 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusService {
+import dao.BusDAO;
 
-	private List<String> stops;
+public class BusService {
 	
+	
+	private List<String> stops;
+	BusDAO busDAO;
 	private int currentStopIndex;
-//	private int totalSeats = 3;
+//	private int totalSeats = 30;
 //	private int availableSeats;
 	
 	
 	public BusService() {
+		
+		busDAO = new BusDAO();
 		stops = new ArrayList<>();
 	    
 	    
@@ -78,6 +83,9 @@ public class BusService {
 //    	return availableSeats;
 //    }
     
-    
+    public void resetSeats() {
+       busDAO.updateSeats(30);
+       System.out.println("Seats reset to 30");
+    }
 	
 }

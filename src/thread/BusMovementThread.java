@@ -16,19 +16,30 @@ public class BusMovementThread extends Thread{
 		
 		public void run() {
 			System.out.println("Bus started journey..");
+			
 			while(!bus.isLastStop()) {
-			System.out.println(bus.getCurrentStop());
+				pase.loadPassengerfromDB();
+				
+			System.out.println("\nCurrent Stop: " +bus.getCurrentStop());
+			
 			pase.handlePassengers();
-			pase.getPassengersInBus();
+			pase.viewAllPassengersFromDB();
+			
+//			pase.getPassengersInBus();
+			
+			 if (bus.isLastStop()) break;
+			 
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 			bus.moveToNextStop();
+			
 			}
-			System.out.println(bus.getCurrentStop());
-			pase.handlePassengers();
+//			System.out.println(bus.getCurrentStop());
+//			pase.handlePassengers();
 			System.out.println("Bus reached final stop");
 			
 			

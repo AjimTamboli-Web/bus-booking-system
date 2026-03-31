@@ -24,8 +24,10 @@ public class PassengerService {
 	}
 	
 	public void addPassenger(Passenger pass) {
+		int id = dao.addPassenger(pass);
+			pass.setPassengerId(id);
 			passenger.add(pass);
-			dao.addPassenger(pass);
+			System.out.println("Passenger stored with ID: " + id);
 	}
 	
 	public void loadPassengerfromDB() {
@@ -69,9 +71,9 @@ public class PassengerService {
 		while(it.hasNext()) {
 			Passenger p = it.next();
 			
-			if(p.getBusId() == 0) {
-				p.setBusId(2);
-			}
+//			if(p.getBusId() == 0) {
+//				p.setBusId(2);
+//			}
 //			if(bus.getCurrentStop().equals(p.getSourceStop()) && !p.getStatus().equalsIgnoreCase("ON_BUS")) {
 //				p.setStatus("ON_BUS");  
 //				System.out.println("Passenger " + p.getName() + " boarded....");
@@ -96,6 +98,8 @@ public class PassengerService {
 											//	below one is old
 //											&& !p.getStatus().equalsIgnoreCase("ON_BUS")
 //										    && !p.getStatus().equalsIgnoreCase("DROPPED")) {
+				
+				
 				
 //				int bookingID =  // true;   // already booked by thread that's why we comment below lines  
 //					     bookingService.bookSeat(
@@ -125,11 +129,18 @@ public class PassengerService {
 			}
 			
 			// Dropping Logic
-			if(currentIndex == destIndex && p.getStatus().equalsIgnoreCase("ON_BUS")){
+			if(currentIndex >= destIndex && p.getStatus().equalsIgnoreCase("ON_BUS")){
 				p.setStatus("DROPPED");
+				
 				dao.updatePassengerStatus(p.getPassengerId(), "DROPPED");
 				
+				if(p.getBookingId() > 0) {
 				bookingService.cancelBooking(p.getBookingId(), p.getBusId());    // now decreasing the seats
+				}
+				System.out.println("Checking drop for: " + p.getName() +
+					    " | Current: " + currentIndex +
+					    " | Dest: " + destIndex +
+					    " | Status: " + p.getStatus());
 				
 				it.remove();
 				System.out.println("Passenger " + p.getName() + " dropped...");

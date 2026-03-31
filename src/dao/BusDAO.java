@@ -76,10 +76,10 @@ public class BusDAO{
 
 		    try (Connection con = DBConnection.getConnection();
 		         PreparedStatement ps = con.prepareStatement(
-		             "update buses set available_seats = ? where bus_id = ?")) {
+		             "update buses set available_seats = ? where bus_id = 1")) {
 
 		        ps.setInt(1, seats);
-		        ps.setInt(2, busId);
+//		        ps.setInt(2, busId);
 
 		        ps.executeUpdate();
 
@@ -169,6 +169,20 @@ public class BusDAO{
 		    }
 
 		    return seats;
+		}
+		
+		public void updateSeats(int seats) {
+		    String sql = "UPDATE buses SET available_seats = ? WHERE bus_id = 1";
+
+		    try (Connection con = DBConnection.getConnection();
+		         PreparedStatement ps = con.prepareStatement(sql)) {
+
+		        ps.setInt(1, seats);
+		        ps.executeUpdate();
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 		}
 		
 	}

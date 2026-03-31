@@ -57,10 +57,17 @@ public class UserBookingThread extends Thread{
 		        passenger.setStatus("CONFIRMED");
 
 		        passengerDAO.updatePassengerStatus(passenger.getPassengerId(), "CONFIRMED");
+		        passengerDAO.updateBookingId(passenger.getPassengerId(), bookingId); 
+		        
+		        System.out.println("DEBUG -> Passenger: " + passenger.getPassengerId() 
+		        + " BusID: " + passenger.getBusId());
 		        
 		        System.out.println("Passenger " + passenger.getPassengerId() +
 		                " successfully booked a seat to " + passenger.getDestinationStop());
 		    } else {
+		    	System.out.println("DEBUG -> Passenger: " + passenger.getPassengerId() 
+		        + " BusID: " + passenger.getBusId());
+		    	
 		        System.out.println("Passenger " + passenger.getPassengerId() +
 		                " failed to book a seat to " + passenger.getDestinationStop());
 		    }
